@@ -20,7 +20,7 @@ export const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterProps>(FilterProps.all);
   const [inputValue, setInputValue] = useState('');
-  const [tempoTodo, setTempoTodo] = useState<Todo | null>(null);
+  const [tempTodo, setTempTodo] = useState<Todo | null>(null);
   const [todoDelete, setTodoDelete] = useState<number[]>([]);
 
   const filteredTodo = todos.filter(todo => {
@@ -71,14 +71,14 @@ export const App: React.FC = () => {
     userId: number,
     completed: boolean = false,
   ): Promise<void> => {
-    const newTempoTodo: Todo = {
+    const newTempTodo: Todo = {
       id: 0,
       title: inputValue.trim(),
       userId: todoServises.USER_ID,
       completed: false,
     };
 
-    setTempoTodo(newTempoTodo);
+    setTempTodo(newTempTodo);
 
     try {
       const newTodo = await todoServises.addTodos({ title, userId, completed });
@@ -89,7 +89,7 @@ export const App: React.FC = () => {
 
       throw Error('Unable to add a todo');
     } finally {
-      setTempoTodo(null);
+      setTempTodo(null);
     }
   };
 
@@ -142,7 +142,7 @@ export const App: React.FC = () => {
         <TodoList
           filteredTodo={filteredTodo}
           deleteTodo={deleteTodo}
-          tempoTodo={tempoTodo}
+          tempoTodo={tempTodo}
           todoDelete={todoDelete}
         />
 
